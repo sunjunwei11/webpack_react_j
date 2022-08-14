@@ -9,7 +9,7 @@ module.exports = {
 	entry: './src/index.jsx',
 	output: {
 		path: path.resolve(__dirname, '../dist'),
-		filename: 'js/main[chunkhash:6].js',
+		filename: 'js/[name][chunkhash:6].js',
 		chunkFilename: 'js/[name][chunkhash:6].chunk.js',
 		assetModuleFilename: 'media/[name][chunkhash:6][ext][query]',
 		clean: true
@@ -52,6 +52,23 @@ module.exports = {
 		splitChunks: {
 			// include all types of chunks
 			chunks: 'all',
+			cacheGroups: {
+				react: {
+					test: /[\\/]node_modules[\\/]react(.*)?[\\/]/,
+					name: 'chunk-react',
+					priority: 30,
+				},
+				antd: {
+					test: /[\\/]node_modules[\\/]antd(.*)?[\\/]/,
+					name: 'chunk-antd',
+					priority: 20,
+				},
+				libs: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'chunk-libs',
+					priority: 10
+				},
+			},
 			// minSize: 0
 		},
 		runtimeChunk: {

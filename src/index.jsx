@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 const Home = lazy(() => import(/* webpackChunkName: 'Home1' */ './components/Home'));
 const About = React.lazy(() => import(/* webpackChunkName: 'About1' */ './components/About'));
 
+import 'antd/dist/antd.less';
+
 import './styles/index.css';
 import './styles/scss.scss';
 import './styles/less.less';
@@ -36,4 +38,10 @@ root.render(
 		</BrowserRouter>
 	</>
 );
+
+setTimeout(() => {
+	import('./utils/index').then(({ add }) => {
+		console.log(add(2, 61));
+	});
+}, 1000);
 

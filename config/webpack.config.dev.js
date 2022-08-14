@@ -3,6 +3,8 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
+const { primaryColor, linkColor, borderRadiusBase } = require('./commonConst');
+
 const getStyleRule = l => {
 	return [
 		'style-loader',
@@ -22,7 +24,7 @@ const devConfig = merge(commConfig, {
 		historyApiFallback: true,
 		compress: true,
 		port: 9000,
-		open: true,
+		// open: true,
 		hot: true
 	},
 	module: {
@@ -33,7 +35,19 @@ const devConfig = merge(commConfig, {
 			},
 			{
 				test: /\.less$/i,
-				use: getStyleRule('less-loader'),
+				use: getStyleRule({
+					loader: 'less-loader', // compiles Less to CSS
+					options: {
+						lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+							modifyVars: {
+								'primary-color': primaryColor,
+								'link-color': linkColor,
+								'border-radius-base': borderRadiusBase,
+							},
+							javascriptEnabled: true,
+						},
+					},
+				}),
 			},
 			{
 				test: /\.s[ac]ss$/i,
@@ -56,7 +70,7 @@ const devConfig = merge(commConfig, {
 	plugins: [
 		new ReactRefreshWebpackPlugin()
 	],
-	// performance: false // 关闭性能分析，提升打包速度
+	performance: false // 关闭性能分析，提升打包速度
 });
 
 console.log(devConfig);
