@@ -1,0 +1,14 @@
+body {
+    .test-scss {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: pink;
+    }
+    .shit {
+        width: 200px;
+        height: 200px;
+        background: url(../asset/img/Shit.png);
+        background-size: 100% 100%;
+    }
+}
